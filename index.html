@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Send Money</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+    }
+
+    .box {
+      background-color: #1a1a1a;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      text-align: center;
+      color: white;
+    }
+
+    .box h1 {
+      margin-bottom: 20px;
+    }
+
+    .paypal-button {
+      background-color: #0070ba;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .paypal-button:hover {
+      background-color: #005ea6;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>buy course</h1>
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+      <input type="hidden" name="cmd" value="_xclick">
+      <input type="hidden" name="business" value="karelzavaril@gmail.com">
+      <input type="hidden" name="item_name" value="Support Payment">
+      <input type="hidden" name="amount" value="45.00">
+      <input type="hidden" name="currency_code" value="USD">
+      <button class="paypal-button" type="submit">click here</button>
+    </form>
+  </div>
+</body>
+</html>
