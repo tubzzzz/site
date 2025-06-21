@@ -7,8 +7,7 @@
     body {
       margin: 0;
       height: 100vh;
-      background: linear-gradient(-45deg, #0f0f0f, #1a1a1a, #222, #0f0f0f);
-      background-size: 400% 400%;
+      background: linear-gradient(-45deg, #0f0f0f, #1a1a1a, #222, #0f0f0
       animation: gradientBG 10s ease infinite;
       display: flex;
       align-items: center;
@@ -37,6 +36,21 @@
     @keyframes fadeIn {
       to { opacity: 1; transform: translateY(0); }
       from { opacity: 0; transform: translateY(20px); }
+    }
+
+    .crocodile {
+      width: 100px;
+      margin-bottom: 20px;
+      animation: bounce 1.5s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
     }
 
     .spinner {
@@ -83,8 +97,14 @@
 </head>
 <body>
   <div class="box">
+    <!-- Dancing Crocodile GIF (make sure this link stays valid or replace with another) -->
+    <img class="crocodile" src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" alt="Dancing Crocodile">
+
+    <!-- Spinner -->
     <div class="spinner"></div>
+
     <h1>Buy Course</h1>
+
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
       <input type="hidden" name="cmd" value="_xclick">
       <input type="hidden" name="business" value="karelzavaril@gmail.com">
