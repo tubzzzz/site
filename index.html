@@ -125,26 +125,44 @@
   <div id="dot"></div>
 
   <script>
-    const dot = document.getElementById("dot");
-    const scoreboard = document.getElementById("scoreboard");
-    let score = 0;
+  const dot = document.getElementById("dot");
+  const scoreboard = document.getElementById("scoreboard");
+  const box = document.querySelector(".box");
+  let score = 0;
 
-    function moveDot() {
-      const maxX = window.innerWidth - 30;
-      const maxY = window.innerHeight - 30;
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
-      dot.style.left = x + "px";
-      dot.style.top = y + "px";
-    }
+  function moveDot() {
+    const maxX = window.innerWidth - 30;
+    const maxY = window.innerHeight - 30;
 
-    dot.addEventListener("click", () => {
-      score++;
-      scoreboard.textContent = "Score: " + score;
-      moveDot();
-    });
+    const boxRect = box.getBoundingClientRect();
+    let x, y;
+    let attempts = 0;
 
-    moveDot(); // Initial position
-  </script>
+    do {
+      x = Math.random() * maxX;
+      y = Math.random() * maxY;
+      attempts++;
+      // Prevent dot from overlapping the box
+    } while (
+      x + 30 > boxRect.left &&
+      x < boxRect.right &&
+      y + 30 > boxRect.top &&
+      y < boxRect.bottom &&
+      attempts < 100
+    );
+
+    dot.style.left = x + "px";
+    dot.style.top = y + "px";
+  }
+
+  dot.addEventListener("click", () => {
+    score++;
+    scoreboard.textContent = "Score: " + score;
+    moveDot();
+  });
+
+  moveDot(); // Initial position
+</script>
+
 </body>
 </html>
