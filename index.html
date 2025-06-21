@@ -32,8 +32,6 @@
       color: white;
       animation: fadeIn 1s ease-out forwards;
       opacity: 0;
-      position: relative;
-      z-index: 2;
     }
 
     @keyframes fadeIn {
@@ -41,20 +39,12 @@
       from { opacity: 0; transform: translateY(20px); }
     }
 
-    .spinner {
+    #timer {
+      font-size: 32px;
       margin-bottom: 20px;
-      width: 50px;
-      height: 50px;
-      border: 5px solid rgba(255,255,255,0.2);
-      border-top: 5px solid #00bfff;
-      border-radius: 50%;
-      animation: spin 2s linear infinite;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+      color: #00ffcc;
+      font-weight: bold;
+      letter-spacing: 2px;
     }
 
     .box h1 {
@@ -81,35 +71,11 @@
       transform: scale(1.05);
       box-shadow: 0 0 15px rgba(0, 112, 186, 0.6);
     }
-
-    /* Minigame styles */
-    #dot {
-      width: 30px;
-      height: 30px;
-      background-color: red;
-      border-radius: 50%;
-      position: absolute;
-      cursor: pointer;
-      z-index: 1;
-      transition: top 0.2s, left 0.2s;
-    }
-
-    #scoreboard {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      color: white;
-      font-size: 18px;
-      font-weight: bold;
-      z-index: 3;
-    }
   </style>
 </head>
 <body>
-  <div id="scoreboard">Score: 0</div>
-
   <div class="box">
-    <div class="spinner"></div>
+    <div id="timer">08:14:55</div>
     <h1>Buy Course</h1>
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
       <input type="hidden" name="cmd" value="_xclick">
@@ -121,48 +87,22 @@
     </form>
   </div>
 
-  <!-- Game Dot -->
-  <div id="dot"></div>
-
   <script>
-  const dot = document.getElementById("dot");
-  const scoreboard = document.getElementById("scoreboard");
-  const box = document.querySelector(".box");
-  let score = 0;
+    let totalSeconds = (8 * 3600) + (14 * 60) + 55;
 
-  function moveDot() {
-    const maxX = window.innerWidth - 30;
-    const maxY = window.innerHeight - 30;
+    function updateTimer() {
+      if (totalSeconds >= 0) {
+        const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+        const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+        const seconds = String(totalSeconds % 60).padStart(2, '0');
 
-    const boxRect = box.getBoundingClientRect();
-    let x, y;
-    let attempts = 0;
+        document.getElementById("timer").textContent = `${hours}:${minutes}:${seconds}`;
+        totalSeconds--;
+      }
+    }
 
-    do {
-      x = Math.random() * maxX;
-      y = Math.random() * maxY;
-      attempts++;
-      // Prevent dot from overlapping the box
-    } while (
-      x + 30 > boxRect.left &&
-      x < boxRect.right &&
-      y + 30 > boxRect.top &&
-      y < boxRect.bottom &&
-      attempts < 100
-    );
-
-    dot.style.left = x + "px";
-    dot.style.top = y + "px";
-  }
-
-  dot.addEventListener("click", () => {
-    score++;
-    scoreboard.textContent = "Score: " + score;
-    moveDot();
-  });
-
-  moveDot(); // Initial position
-</script>
-
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  </script>
 </body>
 </html>
