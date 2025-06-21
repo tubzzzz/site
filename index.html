@@ -32,6 +32,8 @@
       color: white;
       animation: fadeIn 1s ease-out forwards;
       opacity: 0;
+      position: relative;
+      z-index: 2;
     }
 
     @keyframes fadeIn {
@@ -79,9 +81,33 @@
       transform: scale(1.05);
       box-shadow: 0 0 15px rgba(0, 112, 186, 0.6);
     }
+
+    /* Minigame styles */
+    #dot {
+      width: 30px;
+      height: 30px;
+      background-color: red;
+      border-radius: 50%;
+      position: absolute;
+      cursor: pointer;
+      z-index: 1;
+      transition: top 0.2s, left 0.2s;
+    }
+
+    #scoreboard {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      z-index: 3;
+    }
   </style>
 </head>
 <body>
+  <div id="scoreboard">Score: 0</div>
+
   <div class="box">
     <div class="spinner"></div>
     <h1>Buy Course</h1>
@@ -94,5 +120,31 @@
       <button class="paypal-button" type="submit">Click Here</button>
     </form>
   </div>
+
+  <!-- Game Dot -->
+  <div id="dot"></div>
+
+  <script>
+    const dot = document.getElementById("dot");
+    const scoreboard = document.getElementById("scoreboard");
+    let score = 0;
+
+    function moveDot() {
+      const maxX = window.innerWidth - 30;
+      const maxY = window.innerHeight - 30;
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+      dot.style.left = x + "px";
+      dot.style.top = y + "px";
+    }
+
+    dot.addEventListener("click", () => {
+      score++;
+      scoreboard.textContent = "Score: " + score;
+      moveDot();
+    });
+
+    moveDot(); // Initial position
+  </script>
 </body>
 </html>
